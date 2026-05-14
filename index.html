@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Kahaaniya – Dream Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --beige: #f5efe6;
+    --cream: #fdf8f2;
+    --brown: #6b4c35;
+    --brown-dark: #3d2b1f;
+    --olive: #7a8c5c;
+    --olive-light: #a5b882;
+    --yellow: #e8c96a;
+    --warm-white: #fefaf4;
+    --text-dark: #2c1f14;
+    --text-mid: #5c4033;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(253, 248, 242, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(107,76,53,0.1);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--olive); }
+  .nav-cta {
+    background: var(--brown);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--brown-dark); }
+
+  /* ─────────────────────────────────────────
+     SECTION 1 – HERO
+  ───────────────────────────────────────── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(45, 28, 14, 0.62) 0%,
+      rgba(61, 43, 31, 0.45) 60%,
+      rgba(107, 76, 53, 0.30) 100%
+    );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 760px;
+    padding: 0 32px;
+    animation: fadeUp 1.1s ease both;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(232,201,106,0.25);
+    border: 1px solid rgba(232,201,106,0.55);
+    color: var(--yellow);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 6px 18px;
+    margin-bottom: 28px;
+  }
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.18;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--yellow);
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.88);
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+  .hero-btn {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--brown-dark);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(232,201,106,0.4);
+  }
+  .hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(232,201,106,0.5);
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.55);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.35);
+    display: block;
+  }
+
+  /* ─────────────────────────────────────────
+     SECTION 2 – THE PROBLEM
+  ───────────────────────────────────────── */
+  #problem {
+    background: var(--beige);
+    padding: 100px 40px;
+    text-align: center;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--brown-dark);
+    line-height: 1.25;
+    max-width: 600px;
+    margin: 0 auto 60px;
+  }
+  .problem-grid {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 860px;
+    margin: 0 auto 56px;
+  }
+  .problem-card {
+    background: #fff;
+    border: 1px solid rgba(107,76,53,0.12);
+    border-radius: 20px;
+    padding: 40px 32px;
+    flex: 1;
+    min-width: 220px;
+    max-width: 260px;
+    box-shadow: 0 4px 24px rgba(107,76,53,0.07);
+    transition: transform 0.25s;
+  }
+  .problem-card:hover { transform: translateY(-4px); }
+  .problem-icon {
+    font-size: 2.4rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .problem-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 10px;
+  }
+  .problem-card p {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+  .problem-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-style: italic;
+    color: var(--brown);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  /* ─────────────────────────────────────────
+     SECTION 3 – WHAT IS DREAM LAB
+  ───────────────────────────────────────── */
+  #dreamlab {
+    position: relative;
+    padding: 110px 40px;
+    overflow: hidden;
+  }
+  .dreamlab-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1543269664-7eef42226a21?w=1600&q=80') center/cover no-repeat;
+  }
+  .dreamlab-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(253,248,242,0.96) 45%, rgba(253,248,242,0.78) 100%);
+  }
+  .dreamlab-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .dreamlab-text .section-label { text-align: left; }
+  .dreamlab-text .section-title { text-align: left; margin: 0 0 28px; }
+  .dreamlab-text p {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.78;
+    margin-bottom: 16px;
+  }
+  .not-list {
+    list-style: none;
+    margin-bottom: 28px;
+  }
+  .not-list li {
+    font-size: 0.9rem;
+    color: #b07a60;
+    margin-bottom: 6px;
+    padding-left: 20px;
+    position: relative;
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+  .not-list li::before { content: '✕'; position: absolute; left: 0; font-size: 0.7rem; top: 2px; }
+  .is-list { list-style: none; }
+  .is-list li {
+    font-size: 0.95rem;
+    color: var(--brown-dark);
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding-left: 28px;
+    position: relative;
+  }
+  .is-list li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--olive);
+    font-weight: 700;
+  }
+  .dreamlab-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .dv-img {
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--beige);
+  }
+  .dv-img img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .dv-img:hover img { transform: scale(1.04); }
+  .dv-img:first-child {
+    grid-column: 1 / -1;
+  }
+  .dv-img:first-child img { height: 200px; }
+
+  /* ─────────────────────────────────────────
+     SECTION 4 – 4 WEEK STRUCTURE
+  ───────────────────────────────────────── */
+  #weeks {
+    background: var(--warm-white);
+    padding: 100px 40px;
+    text-align: center;
+  }
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .week-card {
+    background: #fff;
+    border: 1px solid rgba(107,76,53,0.10);
+    border-radius: 20px;
+    padding: 36px 24px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(107,76,53,0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .week-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(107,76,53,0.13);
+  }
+  .week-number {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 16px;
+  }
+  .week-emoji {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .week-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .week-card p {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  .week-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--olive-light), var(--yellow));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .week-card:hover::before { opacity: 1; }
+
+  /* ─────────────────────────────────────────
+     SECTION 5 – WHAT CHILDREN GET
+  ───────────────────────────────────────── */
+  #outcomes {
+    position: relative;
+    padding: 110px 40px;
+    overflow: hidden;
+  }
+  .outcomes-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=80') center/cover no-repeat;
+  }
+  .outcomes-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(61,43,31,0.88) 0%, rgba(61,43,31,0.72) 100%);
+  }
+  .outcomes-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .outcomes-inner .section-label { color: var(--olive-light); }
+  .outcomes-inner .section-title { color: #fff; margin-bottom: 48px; }
+  .outcomes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .outcomes-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px;
+    padding: 18px 24px;
+    text-align: left;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s;
+  }
+  .outcomes-list li:hover { background: rgba(255,255,255,0.14); }
+  .outcome-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+  .outcome-text strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .outcome-text span {
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.62);
+  }
+
+  /* ─────────────────────────────────────────
+     SECTION 6 – LIMITED BATCH
+  ───────────────────────────────────────── */
+  #limited {
+    background: var(--brown-dark);
+    padding: 100px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #limited::before {
+    content: '10';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 28vw;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .limited-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+  .limited-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,201,106,0.15);
+    border: 1px solid rgba(232,201,106,0.3);
+    border-radius: 50px;
+    color: var(--yellow);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 7px 18px;
+    margin-bottom: 32px;
+  }
+  .limited-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  .limited-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .limited-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .limited-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.68);
+    line-height: 1.78;
+    max-width: 480px;
+    margin: 0 auto 48px;
+  }
+  .batch-bar {
+    background: rgba(255,255,255,0.08);
+    border-radius: 50px;
+    height: 10px;
+    max-width: 360px;
+    margin: 0 auto 12px;
+    overflow: hidden;
+  }
+  .batch-fill {
+    height: 100%;
+    width: 60%;
+    background: linear-gradient(90deg, var(--olive-light), var(--yellow));
+    border-radius: 50px;
+    animation: fillBar 1.5s ease 0.5s both;
+  }
+  .batch-caption {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+  }
+
+  /* ─────────────────────────────────────────
+     SECTION 7 – APPLY NOW
+  ───────────────────────────────────────── */
+  #apply {
+    background: var(--cream);
+    padding: 110px 40px;
+    text-align: center;
+  }
+  .apply-inner { max-width: 560px; margin: 0 auto; }
+  .apply-inner .section-title { margin-bottom: 16px; }
+  .apply-sub {
+    font-size: 0.98rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+  .apply-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--brown-dark);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 17px 44px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 24px rgba(61,43,31,0.2);
+    width: 100%;
+    max-width: 340px;
+    justify-content: center;
+  }
+  .btn-primary:hover {
+    background: var(--brown);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(61,43,31,0.25);
+  }
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 17px 44px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    width: 100%;
+    max-width: 340px;
+    justify-content: center;
+  }
+  .btn-whatsapp:hover { background: #1ebc5a; transform: translateY(-2px); }
+  .btn-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--brown);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 1.5px solid rgba(107,76,53,0.3);
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+    max-width: 340px;
+    justify-content: center;
+  }
+  .btn-call:hover { background: var(--beige); border-color: var(--brown); }
+
+  /* FOOTER */
+  footer {
+    background: var(--brown-dark);
+    text-align: center;
+    padding: 32px 40px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+  }
+  footer span { color: var(--yellow); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  @keyframes fillBar {
+    from { width: 0; }
+    to { width: 60%; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .dreamlab-inner { grid-template-columns: 1fr; gap: 40px; }
+    .dreamlab-visual { display: none; }
+    .weeks-grid { grid-template-columns: 1fr 1fr; }
+    #limited::before { font-size: 50vw; }
+  }
+  @media (max-width: 480px) {
+    .weeks-grid { grid-template-columns: 1fr; }
+    .problem-grid { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">The <span>Kahaaniya</span></a>
+  <a href="https://forms.gle/tBgUvWNjsQFQVnry5" class="nav-cta" target="_blank">Apply for Batch 1</a>
+</nav>
+
+<!-- SECTION 1: HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Dream Lab · Batch 1 · Limited to 10 Kids</div>
+    <h1 class="hero-headline">
+      What if your child <em>created</em><br>more than they consumed?
+    </h1>
+    <p class="hero-sub">
+      A 4-week creative confidence journey for kids — beyond screens, beyond ordinary.
+    </p>
+    <a href="https://forms.gle/tBgUvWNjsQFQVnry5" class="hero-btn" target="_blank">
+      👉 Apply for Batch 1
+    </a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- SECTION 2: THE PROBLEM -->
+<section id="problem">
+  <p class="section-label">Why it matters</p>
+  <h2 class="section-title">"Kids are consuming more than creating."</h2>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <span class="problem-icon">📱</span>
+      <h3>Passive Screen Time</h3>
+      <p>Hours disappear into videos and games that ask nothing from a child's imagination.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">😶</span>
+      <h3>Low Confidence</h3>
+      <p>Children grow quieter when they rarely get space to express, create, or be heard.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">🧠</span>
+      <h3>Shrinking Creativity</h3>
+      <p>Structured schooling and screen habits slowly crowd out the joy of making something real.</p>
+    </div>
+  </div>
+  <p class="problem-quote">There's a different way to grow up.</p>
+</section>
+
+<!-- SECTION 3: WHAT IS DREAM LAB -->
+<section id="dreamlab">
+  <div class="dreamlab-bg"></div>
+  <div class="dreamlab-overlay"></div>
+  <div class="dreamlab-inner">
+    <div class="dreamlab-text">
+      <p class="section-label">What is Dream Lab?</p>
+      <h2 class="section-title">Not tuition.<br>Not therapy.<br>Something better.</h2>
+      <ul class="not-list">
+        <li>Not another coaching class</li>
+        <li>Not a therapy programme</li>
+        <li>Not storytelling only</li>
+      </ul>
+      <ul class="is-list">
+        <li>A space for real exploration</li>
+        <li>Where confidence is built through doing</li>
+        <li>Where creativity meets responsibility</li>
+        <li>A meaningful childhood experience</li>
+      </ul>
+      <p>Dream Lab by The Kahaaniya is a 4-week guided journey where children discover who they are — through stories, nature, baking, creating, and sharing with the world.</p>
+    </div>
+    <div class="dreamlab-visual">
+      <div class="dv-img">
+        <img src="https://images.unsplash.com/photo-1602640122046-07f0b71e2c5d?w=800&q=80" alt="Child storytelling" />
+      </div>
+      <div class="dv-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Child baking" />
+      </div>
+      <div class="dv-img">
+        <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800&q=80" alt="Child with plant" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: 4-WEEK STRUCTURE -->
+<section id="weeks">
+  <p class="section-label">The Journey</p>
+  <h2 class="section-title">4 Weeks.<br>One Transformation.</h2>
+  <div class="weeks-grid">
+    <div class="week-card">
+      <div class="week-number">Week 1</div>
+      <span class="week-emoji">🌱</span>
+      <h3>Story &amp; Self Discovery</h3>
+      <p>Every child has a story. We help them find it — through listening, sharing, and imagination.</p>
+    </div>
+    <div class="week-card">
+      <div class="week-number">Week 2</div>
+      <span class="week-emoji">🌿</span>
+      <h3>Nature &amp; Responsibility</h3>
+      <p>Children engage with the living world — plants, growth, care — and learn what it means to nurture.</p>
+    </div>
+    <div class="week-card">
+      <div class="week-number">Week 3</div>
+      <span class="week-emoji">🎨</span>
+      <h3>Create Something Real</h3>
+      <p>Baking, making, building — children produce something tangible they can be proud of.</p>
+    </div>
+    <div class="week-card">
+      <div class="week-number">Week 4</div>
+      <span class="week-emoji">🎤</span>
+      <h3>Confidence Showcase</h3>
+      <p>Each child presents their creation to a real audience. The world sees what they made.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: WHAT CHILDREN GET -->
+<section id="outcomes">
+  <div class="outcomes-bg"></div>
+  <div class="outcomes-overlay"></div>
+  <div class="outcomes-inner">
+    <p class="section-label">What they take home</p>
+    <h2 class="section-title">More than a certificate.<br>A new version of themselves.</h2>
+    <ul class="outcomes-list">
+      <li>
+        <span class="outcome-icon">💛</span>
+        <div class="outcome-text">
+          <strong>Genuine Confidence</strong>
+          <span>The kind that comes from creating, not just being told they're great.</span>
+        </div>
+      </li>
+      <li>
+        <span class="outcome-icon">🌍</span>
+        <div class="outcome-text">
+          <strong>Real-World Interests</strong>
+          <span>Sparks that can turn into passions — baking, stories, nature, art.</span>
+        </div>
+      </li>
+      <li>
+        <span class="outcome-icon">✨</span>
+        <div class="outcome-text">
+          <strong>Unleashed Creativity</strong>
+          <span>A mind that knows it can make something from nothing.</span>
+        </div>
+      </li>
+      <li>
+        <span class="outcome-icon">📵</span>
+        <div class="outcome-text">
+          <strong>Offline Engagement</strong>
+          <span>Healthy habits of making over mindless scrolling.</span>
+        </div>
+      </li>
+      <li>
+        <span class="outcome-icon">🗣️</span>
+        <div class="outcome-text">
+          <strong>Communication Skills</strong>
+          <span>The ability to express, present, and connect with others.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- SECTION 6: LIMITED BATCH -->
+<section id="limited">
+  <div class="limited-inner">
+    <div class="limited-tag">Limited Seats Available</div>
+    <div class="limited-number">10</div>
+    <h2 class="limited-headline">Only 10 children per batch.</h2>
+    <p class="limited-body">
+      Because every child deserves undivided attention, emotional safety, and the space to express themselves fully. This is not a class. It's a container for growth.
+    </p>
+    <div class="batch-bar">
+      <div class="batch-fill"></div>
+    </div>
+    <p class="batch-caption">6 of 10 seats already filled</p>
+  </div>
+</section>
+
+<!-- SECTION 7: APPLY NOW -->
+<section id="apply">
+  <div class="apply-inner">
+    <p class="section-label">Ready to begin?</p>
+    <h2 class="section-title">Give your child a journey they'll remember.</h2>
+    <p class="apply-sub">
+      Batch 1 starts soon. Seats are extremely limited.<br />
+      Apply now or reach us directly — we'd love to have a conversation.
+    </p>
+    <div class="apply-buttons">
+      <a href="https://forms.gle/tBgUvWNjsQFQVnry5" class="btn-primary" target="_blank">
+        📋 Apply for Batch 1
+      </a>
+      <a href="https://wa.me/919629843122?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Dream%20Lab%20Batch%201" class="btn-whatsapp" target="_blank">
+        💬 Chat on WhatsApp
+      </a>
+      <a href="tel:9629843122" class="btn-call">
+        📞 Call us: 96298 43122
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>The Kahaaniya</span> · Dream Lab · All rights reserved</p>
+</footer>
+
+</body>
+</html>
